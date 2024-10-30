@@ -44,8 +44,10 @@ class Frame(Frame):
         return True
 
 
-def on_click(event, element, **kwargs):
+def on_click(event, element, callback = None, **kwargs):
     element.config(**kwargs)
+    if callback:
+        callback()
 
 def hover(event, element, **kwargs):
     element.config(**kwargs)

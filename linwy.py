@@ -1,8 +1,5 @@
 from btk.btk import *
 import os
-import winpty
-import queue
-import re
 import lin
 
 os.environ['HOME'] = f'/home/{os.getlogin()}'
@@ -26,13 +23,13 @@ folder_bloc_img = PhotoImage(file="./assets/folder.png")
 chevrondown = PhotoImage(file="./assets/chevrondown.png")
 esd = PhotoImage(file="./assets/py.png")
 x = PhotoImage(file="./assets/x.png")
+file_plus_img = PhotoImage(file="./assets/file-plus.png")
 
 right_bloc = Frame(root, width=1920-370, height=1010, bg="#303445")
 
 terminal_fr = Frame(right_bloc, width=1920-370, height=370, bg="#292C3B")
 terminal_fr.pack(side=BOTTOM, anchor=SE)
-text = lin.LinuxShell(terminal_fr)
-text.pack(side=BOTTOM)
+
 
 
 onglets = Frame(right_bloc, width=1920-370, height=30, bg="#292C3B")
@@ -47,16 +44,6 @@ for e in range(len(ee)):
     onglet = lin.Onglet(onglets, text=ee[e], img=esd, close_img=x)
     onglet.pack(side=LEFT)
 
-# for e in range(len(ee)):
-#     onglet = Canvas(onglets, width=len(ee[e])*10+50, height=30, background="#21232F", highlightthickness=0, cursor="hand2")
-#     r += len(ee[e-1])*10+50 if e > 0 else 0
-#     print(r, ee[e-1])
-#     onglet.place(x=r if e > 0 else 0, y=0)
-#     onglet.create_image(15, 15 , image=esd)
-#     onglet.create_text(30, 15, text=ee[e], fill="white", font=("Monospace", 10), anchor=W)
-#     onglet.create_image((len(ee[e])*10+50)-15, 16, image=x) # EN PAUSE
-#     onglet.bind("<Enter>", lambda event, f=onglet: hover(event, f, bg="#444757"))
-#     onglet.bind("<Leave>", lambda event, f=onglet: hover(event, f, bg="#21232F"))
 
 editor_fr = Frame(right_bloc, width=1920-370, height=1010-400, bg="#303445")
 editor_fr.pack(side=TOP, anchor=N)
@@ -83,6 +70,21 @@ files = ["C:/truc/truc/truc/test.py", "C:/truc/truc/truc/index.html", "C:/truc/t
 
 folder_bloc = Frame(file_bloc, width=300, height=50, background="#353744")
 folder_bloc.pack()
+
+create_files = Frame(file_bloc, width=300, height=24, background="#212433")
+create_files.pack()
+
+file_plus = Canvas(create_files, width=24, height=24, background="#212433", highlightthickness=0, cursor="hand2")
+file_plus.create_image(12, 12, image=file_plus_img)
+file_plus.place(x=276)
+file_plus.bind("<Enter>", lambda event, f=file_plus: hover(event, f, bg="#444757"))
+file_plus.bind("<Leave>", lambda event, f=file_plus: hover(event, f, bg="#212433"))
+file_plus.bind("<Button-1>", lambda event, f=file_plus: on_click(event, f)) # FONCTION A METTRE APRES LE F
+# =============================== Exemple ===============================
+# def creer_fichier():
+#     print("yes")
+# file_plus.bind("<Button-1>", lambda event, f=file_plus: on_click(event, f, creer_fichier))
+
 
 folder_label = folder_bloc.cwidget(Label, text="v1", bg="#353744", fg="white", font=("Monospace", 14, "bold"))
 folder_label.place(x=50, y=12)
